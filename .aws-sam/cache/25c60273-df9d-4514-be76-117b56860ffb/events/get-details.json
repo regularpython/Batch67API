@@ -1,0 +1,8 @@
+{
+  "resource": "/user/get-details",
+  "path": "/user/get-details",
+  "httpMethod": "GET",
+  "queryStringParameters": {
+    "uid": 1
+  }
+}

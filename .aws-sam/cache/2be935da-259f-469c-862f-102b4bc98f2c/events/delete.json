@@ -1,0 +1,8 @@
+{
+  "resource": "/user/delete/{user_id}",
+  "path": "/user/delete/12345",
+  "httpMethod": "DELETE",
+  "pathParameters": {
+    "user_id": "12345"
+  }
+}
