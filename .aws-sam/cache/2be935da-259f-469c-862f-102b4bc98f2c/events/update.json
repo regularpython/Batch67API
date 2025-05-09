@@ -1,5 +1,0 @@
-{
-  "resource": "/user/update",
-  "path": "/user/date",
-  "httpMethod": "POST"
-}

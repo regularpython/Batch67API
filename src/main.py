@@ -1,8 +1,9 @@
 
 from aws_lambda_powertools.event_handler.api_gateway import ApiGatewayResolver, Response
 
+from src.orm.orm_registry import run_mappers
 from src.routers.user_router import user_router
-
+run_mappers()
 app = ApiGatewayResolver()
 
 

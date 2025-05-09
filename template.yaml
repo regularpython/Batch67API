@@ -21,6 +21,7 @@ Resources:
         - x86_64
       Layers:
         - arn:aws:lambda:us-east-1:339713066136:layer:USECase1-modules:1
+        - arn:aws:lambda:us-east-1:339713066136:layer:SqlAlchemy:2
 
       Events:
         GetAllUser:
@@ -28,11 +29,13 @@ Resources:
           Properties:
             Path: /user/get-details
             Method: get
+            Cors: "'*'"
         CreateUser:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /user/create
             Method: post
+            Cors: "'*'"
         GetSingleUser:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
