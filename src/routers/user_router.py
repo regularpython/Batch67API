@@ -77,12 +77,24 @@ def create_user():
 
 @user_router.get("/get-user")
 def get_single_user():
+    user_id = user_router.current_event.get_query_string_value("id")
+    if not user_id:
+        return Response(
+            status_code=404,
+            content_type="application/json",
+            body=json.dumps({"message": "User Id Must and should"})
+        )
     # Get user id from query string paramete
     # Where condition
     repo = UserRepository()
-    result = repo.get_single_user(1)
+    result = repo.get_single_user(int(user_id))
+    if not result:
+        return Response(
+            status_code=404,
+            content_type="application/json",
+            body=json.dumps({"message": "User not found"})
+        )
     result = asdict(result)
-    print(result)
 
     return Response(
         status_code=200,
@@ -94,13 +106,20 @@ def get_single_user():
 @user_router.put("/update")
 def update_user():
     # Get the user details from json body
+    body = user_router.current_event.json_body
+    name = body.get("name")
+    email = body.get("email")
+    age = body.get("age")
+    id = body.get("id")
     # Create
     user = UserModel(
-        id=3,
-        name="siva kumar",
-        age=20,
-        email="siva@1234"
+        id=id,
+        name=name,
+        age=age,
+        email=email
     )
+    # Create
+
     repo = UserRepository()
     result = repo.update(user)
     result = asdict(result)
@@ -112,14 +131,19 @@ def update_user():
     )
 
 
-@user_router.delete("/delete/<user_id>/<name>")
-def delete_user(user_id: str, name: str):
+@user_router.delete("/delete/<user_id>")
+def delete_user(user_id: str):
     # Get the user id from path parameter
     # Delete
     repo = UserRepository()
-    repo.delete_user(1)
+    repo.delete_user(int(user_id))
     return Response(
         status_code=200,
         content_type="application/json",
-        body=json.dumps({"message": "User Delete", "deleted user_id": user_id, "name": name})
+        body=json.dumps({"message": "User Delete", "deleted user_id": user_id}),
+        headers={
+            "Access-Control-Allow-Origin": "*",  # Allow requests from any origin
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "*"
+        }
     )

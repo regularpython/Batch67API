@@ -44,13 +44,18 @@ Resources:
         DeleteUser:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /user/delete/{user_id}/{name}
+            Path: /user/delete/{user_id}
             Method: delete
         UpdateUser:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /user/update
             Method: put
+        GlobalCORSPreflight: # ✅ This catches all OPTIONS
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: options
 
 
 
